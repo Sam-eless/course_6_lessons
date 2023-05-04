@@ -1,0 +1,54 @@
+[
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Cheddar",
+      "description": "creamy",
+      "preview": "",
+      "category": "cheese",
+      "purchase_price": 350,
+      "date_of_creation": "2023-05-04T19:10:49Z",
+      "last_modified_date": "2023-05-04T19:10:52Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Parmesan",
+      "description": "creamy",
+      "preview": "",
+      "category": "cheese",
+      "purchase_price": 150,
+      "date_of_creation": "2023-05-04T19:11:30Z",
+      "last_modified_date": "2023-05-04T19:11:31Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "fields": {
+      "name": "sausage",
+      "description": "meat"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "fields": {
+      "name": "meatballs",
+      "description": "meat"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "fields": {
+      "name": "Milk",
+      "description": "1,5% - 3,5%"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "fields": {
+      "name": "snack",
+      "description": "junk food"
+    }
+  }
+]

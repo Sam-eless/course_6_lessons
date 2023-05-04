@@ -2,6 +2,8 @@ from django.db import models
 
 # Create your models here.
 NULLABLE = {'blank': True, 'null': True}
+
+
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')
     description = models.CharField(max_length=150, verbose_name='описание')
@@ -14,10 +16,12 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name}, {self.description}, {self.preview}, {self.category},' \
                f'{self.purchase_price}, {self.date_of_creation}, {self.last_modified_date}'
+
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('name',)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')

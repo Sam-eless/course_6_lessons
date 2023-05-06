@@ -1,3 +1,4 @@
+from catalog.models import Product
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -15,3 +16,11 @@ def contacts(request):
         message = request.POST.get('message')
         print(f'Получено сообщение от пользователя {name} (телефон: {phone}): {message}')
     return render(request, 'contacts.html')
+
+
+def products(request):
+    context = {
+        'products_list': Product.objects.all(),
+        'title': 'Список продуктов'
+    }
+    return render(request, 'products.html', context)

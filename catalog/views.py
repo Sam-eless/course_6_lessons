@@ -6,7 +6,10 @@ from django.http import HttpResponse
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    context = {
+        'title': 'Главная'
+    }
+    return render(request, 'home.html', context)
 
 
 def contacts(request):
@@ -15,7 +18,11 @@ def contacts(request):
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(f'Получено сообщение от пользователя {name} (телефон: {phone}): {message}')
-    return render(request, 'contacts.html')
+
+    context = {
+            'title': 'Контакты'
+        }
+    return render(request, 'contacts.html', context)
 
 
 def products(request):
@@ -24,3 +31,12 @@ def products(request):
         'title': 'Список продуктов'
     }
     return render(request, 'products.html', context)
+
+
+def product(request, pk):
+    product_item = Product.objects.get(pk=pk)
+    context = {
+        'object': product_item,
+        'title': product_item.name
+    }
+    return render(request, 'product.html', context)

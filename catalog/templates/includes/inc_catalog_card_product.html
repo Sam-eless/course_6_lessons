@@ -1,12 +1,10 @@
 <div class="col-lg-4">
     <div class="card m-2 text-center">
         <div class="card-body">
-            <img src="media/products/2abc7782-114f-44b2-af0a-5aad3c4ba25c.jpg">
             <img class="rounded-circle"
-                 src="media/products/2abc7782-114f-44b2-af0a-5aad3c4ba25c.jpg"
+                 src="../../media/{{ product.preview }}"
                  alt="Generic placeholder image" width="140" height="140">
             <h2>{{ product.name | title }} </h2>
-            <h2>{{ product.image }} </h2>
             <h5>{{ product.category | title }}  </h5>
             <p> {{ product.description| title }}</p>
             <p> {{ product.purchase_price }}</p>

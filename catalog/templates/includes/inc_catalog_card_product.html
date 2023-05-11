@@ -1,0 +1,30 @@
+{% load mediapath %}
+<div class="col-lg-4">
+    <div class="card m-2 text-center">
+        <div class="card-body">
+            <img class="rounded-circle"
+                    {% if product.preview %}
+
+                        {# хардкод вариант #}
+                        {#                 src="../../media/{{ product.preview }}"#}
+
+                        {# с использованием тэга #}
+                        {#                 src="{% media_path product.preview %}"#}
+
+                        {# с использованием фильтра #}
+                 src="{{ product.preview | media_path }}"
+                    {% endif %}
+                 alt="Generic placeholder image" width="140" height="140">
+            <h2>{{ product.name | title }} </h2>
+            <h5>{{ product.category | title }}  </h5>
+            <ul class="list-group list-group-flush">
+                <p> {{ product.description | title | truncatechars:100 }}</p>
+                <p> {{ product.purchase_price }}</p>
+                <p> {{ product.date_of_creation }}</p>
+                <p><a class="btn btn-secondary"
+                      href="{% url 'catalog:product_item' product.pk %}" role="button">Подробнее &raquo;</a></p>
+            </ul>
+        </div>
+    </div>
+
+</div>

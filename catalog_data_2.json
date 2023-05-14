@@ -1,0 +1,57 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Сыр",
+      "description": "молочка"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Колбасы",
+      "description": "мясо"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Гауда",
+      "description": "вкусный сыр",
+      "preview": "",
+      "category": 1,
+      "purchase_price": 22,
+      "date_of_creation": "2023-05-14T12:50:30Z",
+      "last_modified_date": "2023-05-14T12:50:31Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Пармезан",
+      "description": "сухой",
+      "preview": "",
+      "category": 1,
+      "purchase_price": 22,
+      "date_of_creation": "2023-05-14T12:56:53Z",
+      "last_modified_date": "2023-05-14T12:56:54Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Клинские сосиски",
+      "description": "вкусно",
+      "preview": "",
+      "category": 2,
+      "purchase_price": 222,
+      "date_of_creation": "2023-05-14T12:57:24Z",
+      "last_modified_date": "2023-05-14T12:57:25Z"
+    }
+  }
+]

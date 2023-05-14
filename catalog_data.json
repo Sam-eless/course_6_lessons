@@ -1,10 +1,37 @@
 [
   {
     "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Пармезан",
+      "description": "выдержка 3 месяца",
+      "preview": "products/prm_rus.jpg",
+      "category": 63,
+      "purchase_price": 350,
+      "date_of_creation": "2023-05-04T19:10:49Z",
+      "last_modified_date": "2023-05-04T19:10:52Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Гауда",
+      "description": "происхождение - РФ",
+      "preview": "products/gauda.jpg",
+      "category": "Сыр",
+      "purchase_price": 150,
+      "date_of_creation": "2023-05-04T19:11:30Z",
+      "last_modified_date": "2023-05-04T19:11:31Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
     "fields": {
       "name": "Cheddar",
       "description": "creamy",
-      "preview": "",
+      "preview": "products/cheddar.jpg",
       "category": "cheese",
       "purchase_price": 350,
       "date_of_creation": "2023-05-04T19:10:49Z",
@@ -13,10 +40,11 @@
   },
   {
     "model": "catalog.product",
+    "pk": 4,
     "fields": {
       "name": "Parmesan",
       "description": "creamy",
-      "preview": "",
+      "preview": "products/parmesan.jpg",
       "category": "cheese",
       "purchase_price": 150,
       "date_of_creation": "2023-05-04T19:11:30Z",
@@ -25,30 +53,42 @@
   },
   {
     "model": "catalog.category",
+    "pk": 19,
     "fields": {
-      "name": "sausage",
-      "description": "meat"
+      "name": "Рыба",
+      "description": "Замороженное"
     }
   },
   {
     "model": "catalog.category",
+    "pk": 20,
     "fields": {
-      "name": "meatballs",
-      "description": "meat"
+      "name": "Сыр",
+      "description": "Охлажденное"
     }
   },
   {
     "model": "catalog.category",
+    "pk": 21,
     "fields": {
-      "name": "Milk",
-      "description": "1,5% - 3,5%"
+      "name": "Морепродукты",
+      "description": "Замороженное"
     }
   },
   {
     "model": "catalog.category",
+    "pk": 22,
     "fields": {
-      "name": "snack",
-      "description": "junk food"
+      "name": "Фрукты",
+      "description": "Свежее, скоропортящееся"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 23,
+    "fields": {
+      "name": "Овощи",
+      "description": "Свежее, скоропортящееся"
     }
   }
 ]

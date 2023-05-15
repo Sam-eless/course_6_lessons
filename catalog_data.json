@@ -1,94 +1,91 @@
 [
   {
-    "model": "catalog.product",
+    "model": "catalog.category",
     "pk": 1,
     "fields": {
-      "name": "Пармезан",
-      "description": "выдержка 3 месяца",
-      "preview": "products/prm_rus.jpg",
-      "category": 63,
-      "purchase_price": 350,
-      "date_of_creation": "2023-05-04T19:10:49Z",
-      "last_modified_date": "2023-05-04T19:10:52Z"
+      "name": "Сыры",
+      "description": "Молочные продукты"
     }
   },
   {
-    "model": "catalog.product",
+    "model": "catalog.category",
     "pk": 2,
     "fields": {
-      "name": "Гауда",
-      "description": "происхождение - РФ",
-      "preview": "products/gauda.jpg",
-      "category": "Сыр",
-      "purchase_price": 150,
-      "date_of_creation": "2023-05-04T19:11:30Z",
-      "last_modified_date": "2023-05-04T19:11:31Z"
+      "name": "Колбасы",
+      "description": "Мясо"
     }
   },
   {
-    "model": "catalog.product",
-    "pk": 3,
-    "fields": {
-      "name": "Cheddar",
-      "description": "creamy",
-      "preview": "products/cheddar.jpg",
-      "category": "cheese",
-      "purchase_price": 350,
-      "date_of_creation": "2023-05-04T19:10:49Z",
-      "last_modified_date": "2023-05-04T19:10:52Z"
-    }
-  },
-  {
-    "model": "catalog.product",
+    "model": "catalog.category",
     "pk": 4,
     "fields": {
-      "name": "Parmesan",
-      "description": "creamy",
+      "name": "Напитки",
+      "description": "Безалкогольные"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Чеддер",
+      "description": "Английский полутвердый сорт сыра",
+      "preview": "products/cheddar.jpg",
+      "category": 1,
+      "purchase_price": 250,
+      "date_of_creation": "2023-05-15T16:53:41Z",
+      "last_modified_date": "2023-05-15T16:53:42Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name": "Гауда",
+      "description": "Твёрдый голландский сыр",
+      "preview": "products/gauda.jpg",
+      "category": 1,
+      "purchase_price": 170,
+      "date_of_creation": "2023-05-15T16:54:49Z",
+      "last_modified_date": null
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+      "name": "Пармезан",
+      "description": "Итальянский сорт твёрдого сыра долгого созревания",
       "preview": "products/parmesan.jpg",
-      "category": "cheese",
-      "purchase_price": 150,
-      "date_of_creation": "2023-05-04T19:11:30Z",
-      "last_modified_date": "2023-05-04T19:11:31Z"
+      "category": 1,
+      "purchase_price": 500,
+      "date_of_creation": "2023-05-15T18:52:01Z",
+      "last_modified_date": "2023-05-15T18:52:02Z"
     }
   },
   {
-    "model": "catalog.category",
-    "pk": 19,
+    "model": "catalog.product",
+    "pk": 8,
     "fields": {
-      "name": "Рыба",
-      "description": "Замороженное"
+      "name": "Хамон",
+      "description": "испанский национальный деликатес, сыровяленый свиной окорок",
+      "preview": "products/hamon.jpeg",
+      "category": 2,
+      "purchase_price": 3000,
+      "date_of_creation": "2023-05-15T18:53:08Z",
+      "last_modified_date": "2023-05-15T18:53:09Z"
     }
   },
   {
-    "model": "catalog.category",
-    "pk": 20,
+    "model": "catalog.product",
+    "pk": 9,
     "fields": {
-      "name": "Сыр",
-      "description": "Охлажденное"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 21,
-    "fields": {
-      "name": "Морепродукты",
-      "description": "Замороженное"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 22,
-    "fields": {
-      "name": "Фрукты",
-      "description": "Свежее, скоропортящееся"
-    }
-  },
-  {
-    "model": "catalog.category",
-    "pk": 23,
-    "fields": {
-      "name": "Овощи",
-      "description": "Свежее, скоропортящееся"
+      "name": "Cola",
+      "description": "газированный безалкогольный напиток",
+      "preview": "products/cola.jpg",
+      "category": 4,
+      "purchase_price": 50,
+      "date_of_creation": "2023-05-15T18:56:24Z",
+      "last_modified_date": "2023-05-15T18:56:25Z"
     }
   }
 ]

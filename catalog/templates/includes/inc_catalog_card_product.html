@@ -18,8 +18,8 @@
             <h2>{{ product.name | title }} </h2>
             <h5>{{ product.category | title }}  </h5>
             <ul class="list-group list-group-flush">
-                <p> {{ product.description | title | truncatechars:100 }}</p>
-                <p> {{ product.purchase_price }}</p>
+                <p> {{ product.description | truncatechars:30 }}</p>
+                <p> Цена: {{ product.purchase_price }} р.</p>
                 <p> {{ product.date_of_creation }}</p>
                 <p><a class="btn btn-secondary"
                       href="{% url 'catalog:product_item' product.pk %}" role="button">Подробнее &raquo;</a></p>

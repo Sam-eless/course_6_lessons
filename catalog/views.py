@@ -1,6 +1,7 @@
 from catalog.models import Product
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -20,23 +21,49 @@ def contacts(request):
         print(f'Получено сообщение от пользователя {name} (телефон: {phone}): {message}')
 
     context = {
-            'title': 'Контакты'
-        }
+        'title': 'Контакты'
+    }
     return render(request, 'contacts.html', context)
 
 
-def products(request):
-    context = {
-        'products_list': Product.objects.all(),
-        'title': 'Список продуктов'
-    }
-    return render(request, 'products.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data['title'] = 'any'
+    #     return context_data
 
 
-def product(request, pk):
-    product_item = Product.objects.get(pk=pk)
-    context = {
-        'object': product_item,
-        'title': product_item.name
+# def products(request):
+#     context = {
+#         'products_list': Product.objects.all(),
+#         'title': 'Список продуктов'
+#     }
+#     return render(request, 'products.html', context)
+
+
+class ProductListView(ListView):
+    model = Product
+    context_object_name = 'products_list'
+    extra_context = {
+        'title': 'Товары'
     }
-    return render(request, 'product.html', context)
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data['title'] = 'Товары'
+    #     return context_data
+
+# def product(request, pk):
+#     product_item = Product.objects.get(pk=pk)
+#     context = {
+#         'object': product_item,
+#         'title': product_item.name
+#     }
+#     return render(request, 'product_detail.html', context)
+
+
+
+
+
+

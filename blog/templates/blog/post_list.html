@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container marketing">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">{{ title }}</h1>
+            <div class="content text-right">
+                <a href="{% url 'blog:post_create' %}" class="btn btn-dark text-right btn-sm">Создать пост</a>
+            </div>
+        </div>
+        <div class="row">
+            {% for object in object_list %}
+                {% include 'includes/inc_blog_card_post.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

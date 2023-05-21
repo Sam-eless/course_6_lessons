@@ -21,8 +21,6 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    print(os.getenv('EMAIL_HOST_PASSWORD'))
-    print(os.getenv('EMAIL_HOST_USER'))
 
     def get_object(self, queryset=None):
         post = super().get_object(queryset=queryset)

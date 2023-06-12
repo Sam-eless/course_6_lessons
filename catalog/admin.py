@@ -9,7 +9,7 @@ from catalog.models import Product, Category, Version
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'purchase_price', 'category',)
+    list_display = ('id', 'name', 'purchase_price', 'category', 'author',)
     search_fields = ('name', 'purchase_price',)
     list_filter = ('category',)
 

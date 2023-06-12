@@ -20,7 +20,7 @@
             <ul class="list-group list-group-flush">
                 <p> {{ product.description | truncatechars:30 }}</p>
                 <p> Цена: {{ product.purchase_price }} р.</p>
-                <p> {{ product.date_of_creation }}</p>
+                <p> {{ product.date_of_creation }} {% if product.author %}- {{  product.author }} {% endif %}</p>
 
                 <p><a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger text-center btn-sm">Удалить </a>
                 </p>

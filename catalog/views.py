@@ -58,16 +58,14 @@ class ProductCreateView(CreateView):
         'title': 'Добавить продукт'
     }
 
-    # def form_valid(self, form):
-    #     super().__init__()
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.author = self.request.user
+        self.object.save()
+
+        return super().form_valid(form)
 
 
-#         post = form.save(commit=False)
-#         post.slug = slugify(post.title)
-#         post.save()
-#         return redirect(reverse('blog:post_item', kwargs={'slug': post.slug}))
-#
-#
 class ProductUpdateView(UpdateView):
     model = Product
     # fields = ('name', 'description', 'category', 'purchase_price',)

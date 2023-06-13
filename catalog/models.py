@@ -1,4 +1,8 @@
 from django.db import models
+from django.utils.timezone import now
+
+from config import settings
+from users.models import User
 
 # Create your models here.
 NULLABLE = {'blank': True, 'null': True}
@@ -23,8 +27,9 @@ class Product(models.Model):
     preview = models.ImageField(upload_to='products/', verbose_name='изображение', **NULLABLE)
     category = models.ForeignKey(verbose_name='Категория', to='Category', on_delete=models.DO_NOTHING)
     purchase_price = models.IntegerField(verbose_name='цена за покупку')
-    date_of_creation = models.DateTimeField(verbose_name='дата создания', **NULLABLE)
+    date_of_creation = models.DateTimeField(default=now, verbose_name='дата создания', **NULLABLE)
     last_modified_date = models.DateTimeField(verbose_name='дата последнего изменения', **NULLABLE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='автор', on_delete=models.SET_NULL, **NULLABLE)
 
     def __str__(self):
         return f'{self.name}'
@@ -32,7 +37,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
-        ordering = ('name',)
+        ordering = ('-date_of_creation',)
 
     def get_active_version(self):
         data = Version.objects.all().filter(product=self.pk, is_active=True).last()

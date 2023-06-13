@@ -17,9 +17,6 @@ def send_verify_email(request, user):
         'token': token_generator.make_token(user),
     }
 
-    # message = render_to_string('verification_sent.html', context=context,)
-    # uid = urlsafe_base64_encode(force_bytes(self.object.pk))
-    # token = token_generator.make_token(self.object)
     email_body = f"Подтвердите свой адрес электронной почты, перейдя по ссылке: " \
                  f"http://{context['domain']}/users/verify_email/{context['uid']}/{context['token']}/"
     send_mail(

@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm, AuthenticationForm, PasswordResetForm, \
+    SetPasswordForm
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -50,3 +51,24 @@ class UserRegisterForm(FormStyleMixin, UserCreationForm):
         model = User
         fields = ('first_name', 'last_name', 'phone', 'avatar', 'country', 'email', 'password1', 'password2')
         # fields = ('email', 'password1', 'password2')
+
+
+class CustomPasswordResetForm(FormStyleMixin, PasswordResetForm):
+    email = forms.EmailField(
+        label='Email',
+        max_length=254,
+        widget=forms.EmailInput(attrs={'autocomplete': 'email'})
+    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+
+
+class CustomSetPasswordForm(FormStyleMixin, SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        class Meta:
+            model = User

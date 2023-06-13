@@ -1,10 +1,8 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.contrib.auth.tokens import default_token_generator as token_generator
-from django.contrib.auth.views import LoginView
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
 from django.shortcuts import redirect, render
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -12,7 +10,8 @@ from django.views import View
 from django.views.generic import UpdateView, CreateView
 from config.settings import EMAIL_HOST_USER
 from users.models import User
-from users.forms import UserForm, UserRegisterForm, UserAuthenticationForm
+from users.forms import UserForm, UserRegisterForm, UserAuthenticationForm, CustomSetPasswordForm, \
+    CustomPasswordResetForm
 from users.utils import send_verify_email
 
 
@@ -54,13 +53,6 @@ class RegisterView(CreateView):
         return render(request, 'users/login.html', context)
 
 
-def send_verification_email(request):
-    context = {
-        'title': 'Подтверждение почты'
-    }
-    return render(request, 'verification_sent.html', context)
-
-
 User_data = get_user_model()
 
 
@@ -87,22 +79,24 @@ class EmailVerify(View):
             user = None
         return user
 
-# def generate_new_password(self, request):
-#     new_password = '11'
-#     send_mail(
-#         subject='Смена пароля ',
-#         message=f'Ваш новый пароль {new_password}',
-#         from_email=EMAIL_HOST_USER,
-#         recipient_list=[self.object.email]
-#     )
-#
-#     # def form_valid(self, form):
-#     #     if form.is_valid():
-#     #         self.object = form.save()
-#     #         if form.data.get('need_generate', False):
-#     #             self.object.set_password(
-#     #                 self.object.make_random_password(length=12) ---------------> вот эта строка нужна
-#     #             )
-#     #             self.object.save()
-#
-#     return redirect(reverse('catalog:products'))
+
+# PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'users/password_reset_email.html'
+    template_name = 'users/password_reset_form.html'
+    form_class = CustomPasswordResetForm
+    success_url = reverse_lazy('users:password_reset_done')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    form_class = CustomSetPasswordForm
+    success_url = reverse_lazy('users:password_reset_complete')
+    template_name = 'users/password_reset_confirm.html'
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'users/password_reset_complete.html'

@@ -62,8 +62,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     }
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user
-        # return super().form_valid(form)
+
         form.instance.author = self.request.user if self.request.user.is_authenticated else None
         return super().form_valid(form)
 

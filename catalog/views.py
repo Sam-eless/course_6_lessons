@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 
 from catalog.forms import ProductForm, VersionForm
@@ -5,7 +8,7 @@ from catalog.models import Product, Version
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
@@ -49,7 +52,7 @@ class ProductListView(ListView):
     }
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     # fields = ('name', 'description', 'category', 'purchase_price')
     form_class = ProductForm
@@ -59,14 +62,13 @@ class ProductCreateView(CreateView):
     }
 
     def form_valid(self, form):
-        self.object = form.save()
-        self.object.author = self.request.user
-        self.object.save()
-
+        # form.instance.user = self.request.user
+        # return super().form_valid(form)
+        form.instance.author = self.request.user if self.request.user.is_authenticated else None
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     # fields = ('name', 'description', 'category', 'purchase_price',)
     form_class = ProductForm
@@ -75,6 +77,14 @@ class ProductUpdateView(UpdateView):
     extra_context = {
         'title': 'Редактирование'
     }
+    permission_required = 'catalog.can_edit_product'
+
+    def test_func(self):
+        product = self.get_object()
+        return self.request.user == product.author
+
+    def handle_no_permission(self):
+        raise PermissionDenied("Вы не являетесь автором этого продукта.")
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -97,6 +107,15 @@ class ProductUpdateView(UpdateView):
 
 
 #
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:products')
+
+    permission_required = 'catalog.can_edit_product'
+
+    def test_func(self):
+        product = self.get_object()
+        return self.request.user == product.author
+
+    def handle_no_permission(self):
+        raise PermissionDenied("Вы не являетесь автором этого продукта.")

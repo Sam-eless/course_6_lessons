@@ -1,3 +1,4 @@
+
 from catalog.apps import CatalogConfig
 from django.urls import path
 

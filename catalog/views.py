@@ -67,7 +67,8 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    # PermissionRequiredMixin - пока убрал
     model = Product
     # fields = ('name', 'description', 'category', 'purchase_price',)
     form_class = ProductForm
@@ -76,7 +77,7 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesT
     extra_context = {
         'title': 'Редактирование'
     }
-    permission_required = 'catalog.can_edit_product'
+    # permission_required = 'catalog.can_edit_product'
 
     def test_func(self):
         product = self.get_object()
@@ -106,11 +107,12 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesT
 
 
 #
-class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    # PermissionRequiredMixin - пока убрал
     model = Product
     success_url = reverse_lazy('catalog:products')
 
-    permission_required = 'catalog.can_edit_product'
+    # permission_required = 'catalog.can_edit_product'
 
     def test_func(self):
         product = self.get_object()

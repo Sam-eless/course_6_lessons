@@ -9,8 +9,8 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.as_p }}
-                <div class="content mb-2">{% if user.is_email_verified %} Почта подтверждена {% else %}
-                    <a> Почта не подтверждена. Для завершения регистрации направлено письмо для подтверждения почты на адрес <b>{{ user.email }}</b></a>
+                <div class="content mb-2">{% if not user.is_email_verified %} <a>  Письмо для завершения регистрации будет направлено на ваш адрес </a> {% else %}
+
                             {% endif %}</div>
                     {% if user.is_authenticated %}
                         <button type="submit" class="btn btn-success">Сохранить</button>

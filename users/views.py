@@ -50,7 +50,7 @@ class RegisterView(CreateView):
             'form': form
         }
 
-        return render(request, 'home.html', context)
+        return render(request, 'users/send_email.html', context)
 
 
 User_data = get_user_model()

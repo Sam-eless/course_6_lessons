@@ -14,7 +14,7 @@ class FormStyleMixin:
 class ProductForm(FormStyleMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ('date_of_creation', 'last_modified_date', 'author')
+        exclude = ('date_of_creation', 'last_modified_date', 'author', 'is_published',)
 
     def clean_name(self):
         """
@@ -38,6 +38,12 @@ class ProductForm(FormStyleMixin, forms.ModelForm):
             if i in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
                 raise forms.ValidationError('Недопустимое описание')
         return cleaned_data
+
+
+class ProductFormModer(FormStyleMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('description', 'category',)
 
 
 class VersionForm(FormStyleMixin, forms.ModelForm):

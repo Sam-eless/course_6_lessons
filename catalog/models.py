@@ -30,6 +30,7 @@ class Product(models.Model):
     date_of_creation = models.DateTimeField(default=now, verbose_name='дата создания', **NULLABLE)
     last_modified_date = models.DateTimeField(verbose_name='дата последнего изменения', **NULLABLE)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='автор', on_delete=models.SET_NULL, **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name='продукт опубликован')
 
     def __str__(self):
         return f'{self.name}'
@@ -38,6 +39,24 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('-date_of_creation',)
+        permissions = [
+            (
+                "can_unpublish_product",
+                "Can unpublished product"
+            ),
+            (
+                "can_change_description_any_product",
+                "Can change the description of any product"
+            ),
+            (
+                "can_change_category_any_product",
+                "Can change the category of any product"
+            )
+        ]
+
+    def delete(self, *args, **kwargs):
+        self.is_published = False
+        self.save()
 
     def get_active_version(self):
         data = Version.objects.all().filter(product=self.pk, is_active=True).last()

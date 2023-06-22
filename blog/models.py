@@ -40,3 +40,4 @@ class Post(models.Model):
         verbose_name = 'пост'
         verbose_name_plural = 'посты'
         ordering = ('-date_of_creation',)
+

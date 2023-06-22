@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, 
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductFormModer
 from catalog.models import Product, Version
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -51,6 +51,14 @@ class ProductListView(ListView):
         'title': 'Товары'
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.has_perm("can_unpublish_product") and self.request.user.is_authenticated:
+            return queryset
+        else:
+            queryset = queryset.filter(is_published=True)
+            return queryset
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
@@ -62,7 +70,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     }
 
     def form_valid(self, form):
-
         form.instance.author = self.request.user if self.request.user.is_authenticated else None
         return super().form_valid(form)
 
@@ -77,14 +84,29 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     extra_context = {
         'title': 'Редактирование'
     }
-    # permission_required = 'catalog.can_edit_product'
 
     def test_func(self):
         product = self.get_object()
-        return self.request.user == product.author
+        moderator = self.request.user.has_perm(
+            "catalog.can_change_description_any_product") and self.request.user.has_perm(
+            'catalog.can_change_category_any_product')
+        if moderator:
+            return True
+        else:
+            return self.request.user == product.author
+
+    # def test_func(self):
+    #     product = self.get_object()
+    #     return self.request.user == product.author
 
     def handle_no_permission(self):
         raise PermissionDenied("Вы не являетесь автором этого продукта.")
+
+    def get_form_class(self, ):
+        class_form = ProductFormModer
+        if not self.request.user.has_perm('catalog.can_change_description_any_product'):
+            class_form = ProductForm
+        return class_form
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -108,15 +130,15 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 #
 class ProductDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    # PermissionRequiredMixin - пока убрал
     model = Product
     success_url = reverse_lazy('catalog:products')
 
-    # permission_required = 'catalog.can_edit_product'
-
     def test_func(self):
         product = self.get_object()
-        return self.request.user == product.author
+        if self.request.user.has_perm("catalog.can_unpublish_product"):
+            return True
+        else:
+            return self.request.user == product.author
 
     def handle_no_permission(self):
         raise PermissionDenied("Вы не являетесь автором этого продукта.")

@@ -1,14 +1,7 @@
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-
 from django.db import models
-from django.http import request
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
-
 from blog.models import NULLABLE
-from config.settings import EMAIL_HOST_USER
+from django.contrib.auth.models import Group, Permission
 
 
 # Create your models here.
@@ -25,3 +18,19 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+
+moderator_group, created = Group.objects.get_or_create(name='Модераторы')
+if created:
+    # Создание прав доступа для группы модераторов
+
+    # Право на отмену публикации продукта
+    can_unpublish_product = Permission.objects.get(codename='can_unpublish_product')
+    moderator_group.permissions.add(can_unpublish_product)
+
+    # Право на изменение описания продукта
+    can_change_description_any_product = Permission.objects.get(codename='can_change_description_any_product')
+    moderator_group.permissions.add(can_change_description_any_product)
+
+    # Право на изменение категории продукта
+    can_change_category_any_product = Permission.objects.get(codename='can_change_category_any_product')
+    moderator_group.permissions.add(can_change_category_any_product)

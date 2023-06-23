@@ -1,5 +1,8 @@
+from PIL.ImageQt import _toqclass_helper
+from django.conf import settings
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 
@@ -10,6 +13,8 @@ from django.urls import reverse_lazy
 
 from django.http import HttpResponse, request
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
+from catalog.services.cache_list_categories import get_all_categories
 
 
 # Create your views here.
@@ -41,6 +46,7 @@ class ProductDetailView(DetailView):
         context_data = super().get_context_data(**kwargs)
         context_data['title'] = self.get_object()
         context_data['versions'] = Version.objects.filter(product=self.object, is_active=True)
+        context_data['category_list'] = get_all_categories()
         return context_data
 
 
